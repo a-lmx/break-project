@@ -24,3 +24,5 @@ What are the tech and/or skill dependencies of your project?
 
 What does success look like for this project? What does done mean?
 - Success looks like a webpage on which a user can select a language, eg. Vietnamese, Russian, or Spanish, and get back a list of Seattle neighborhoods or zipcodes in order of how many speakers of that language live in that neighborhood.
+
+For task breakdown, see the [Trello board](https://trello.com/b/VlQgdi5R/break-project)
