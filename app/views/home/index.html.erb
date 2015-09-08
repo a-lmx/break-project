@@ -1,0 +1,16 @@
+<h1>Seattle Language Distribution by Zipcode</h1>
+
+<h3>Select a language: <%= @language.capitalize %></h3>
+<%#= form do |f| %>
+  <%# collection_select %>
+<%# end %>
+
+
+<ul>
+  <% language_speakers = 0 %>
+  <% @seattle_zips.each do |zipcode| %>
+    <li><%= zipcode.zipcode %>: <%= zipcode.send(@language) %></li>
+    <% language_speakers += zipcode.send(@language) %>
+  <% end %>
+  <li>Total: <%= language_speakers %></li>
+</ul>
