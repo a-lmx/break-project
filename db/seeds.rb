@@ -1,14 +1,59 @@
 require 'csv'
 
+zipcode_headers = [
+  { "GEO.id2"   => :zipcode },
+  { "HD01_VD01" => :total },
+  { "HD01_VD02" => :english },
+  { "HD01_VD03" => :spanish },
+  { "HD01_VD06" => :french },
+  { "HD01_VD09" => :french_creole },
+  { "HD01_VD12" => :italian },
+  { "HD01_VD15" => :portuguese },
+  { "HD01_VD18" => :german },
+  { "HD01_VD21" => :yiddish },
+  { "HD01_VD24" => :other_west_germanic },
+  { "HD01_VD27" => :scandinavian },
+  { "HD01_VD30" => :greek },
+  { "HD01_VD33" => :russian },
+  { "HD01_VD36" => :polish },
+  { "HD01_VD39" => :serbo_croatian },
+  { "HD01_VD42" => :other_slavic },
+  { "HD01_VD45" => :armenian },
+  { "HD01_VD48" => :persian },
+  { "HD01_VD51" => :gujarati },
+  { "HD01_VD54" => :hindi },
+  { "HD01_VD57" => :urdu },
+  { "HD01_VD60" => :other_indic },
+  { "HD01_VD63" => :other_indo_european },
+  { "HD01_VD66" => :chinese },
+  { "HD01_VD69" => :japanese },
+  { "HD01_VD72" => :korean },
+  { "HD01_VD75" => :mon_khmer_cambodian },
+  { "HD01_VD78" => :hmong },
+  { "HD01_VD81" => :thai },
+  { "HD01_VD84" => :laotian },
+  { "HD01_VD87" => :vietnamese },
+  { "HD01_VD90" => :other_asian },
+  { "HD01_VD93" => :tagalog },
+  { "HD01_VD96" => :other_pacific_island },
+  { "HD01_VD99" => :navajo },
+  { "HD01_VD102" => :other_native_north_american },
+  { "HD01_VD105" => :hungarian },
+  { "HD01_VD108" => :arabic },
+  { "HD01_VD111" => :hebrew },
+  { "HD01_VD114" => :african },
+  { "HD01_VD117" => :other_and_unspecified }
+]
+
 CSV.foreach("db/aff_download/ACS_13_5YR_B16001_with_ann.csv", 
   encoding: "UTF-8", headers: true) do |row|
-  # for each row, take only the columns that are keys in zipcode_headers
-  # assign the values in the row to the attributes that are the values
+
   row_hash = row.to_hash
   zipcode_hash = {}
   zipcode_headers.each do |header|
-    zipcode_hash[zipcode_headers[header]] = row_hash[header]
+    zipcode_hash[header.values.first] = row_hash[header.keys.first]
   end
+
   Zipcode.create(zipcode_hash)
 end
 
@@ -18,51 +63,6 @@ end
 
 # Store density in Zipcode model ?
 # => calculate in the model
-
-zipcode_headers = {
-"GEO.id2": :zipcode,
-"HD01_VD01": :total,
-"HD01_VD02": :english,
-"HD01_VD03": :spanish,
-"HD01_VD06": :french,
-"HD01_VD09": :french_creole,
-"HD01_VD12": :italian,
-"HD01_VD15": :portuguese,
-"HD01_VD18": :german,
-"HD01_VD21": :yiddish,
-"HD01_VD24": :other_west_germanic,
-"HD01_VD27": :scandinavian,
-"HD01_VD30": :greek,
-"HD01_VD33": :russian,
-"HD01_VD36": :polish,
-"HD01_VD39": :serbo_croatian,
-"HD01_VD42": :other_slavic,
-"HD01_VD45": :armenian,
-"HD01_VD48": :persian,
-"HD01_VD51": :gujarati,
-"HD01_VD54": :hindi,
-"HD01_VD57": :urdu,
-"HD01_VD60": :other_indic,
-"HD01_VD63": :other_indo_european,
-"HD01_VD66": :chinese,
-"HD01_VD69": :japanese,
-"HD01_VD72": :korean,
-"HD01_VD75": :mon_khmer_cambodian,
-"HD01_VD78": :hmong,
-"HD01_VD81": :thai,
-"HD01_VD84": :laotian,
-"HD01_VD87": :vietnamese,
-"HD01_VD90": :other_asian,
-"HD01_VD93": :tagalog,
-"HD01_VD96": :other_pacific_island,
-"HD01_VD99": :navajo,
-"HD01_VD102": :other_native_north_american,
-"HD01_VD105": :hungarian,
-"HD01_VD108": :arabic,
-"HD01_VD111": :hebrew,
-"HD01_VD114": :african,
-"HD01_VD117": :other_and_unspecified
-}
 
 # labels: "HD01_VD01": :total,
 # "HD01_VD02": :English,
