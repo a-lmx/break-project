@@ -5,6 +5,7 @@
   <%# collection_select %>
 <%# end %>
 
+<h4>Seattle</h4>
 
 <ul>
   <% language_speakers = 0 %>
@@ -12,5 +13,16 @@
     <li><%= zipcode.zipcode %>: <%= zipcode.send(@language) %></li>
     <% language_speakers += zipcode.send(@language) %>
   <% end %>
-  <li>Total: <%= language_speakers %></li>
+  <li>Seattle Total: <%= language_speakers %></li>
+</ul>
+
+<h4>Vancouver</h4>
+
+<ul>
+  <% language_speakers = 0 %>
+  <% @vancouver_zips.each do |zipcode| %>
+    <li><%= zipcode.zipcode %>: <%= zipcode.send(@language) %></li>
+    <% language_speakers += zipcode.send(@language) %>
+  <% end %>
+  <li>Vancouver Total: <%= language_speakers %></li>
 </ul>
