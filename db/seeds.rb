@@ -1,18 +1,25 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
-#
-# Examples:
-#
-#   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
-#   Mayor.create(name: 'Emanuel', city: cities.first)
+require 'csv'
 
-seattle_zip_codes = [98177, 98133, 98125, 98117, 98107, 98103, 98115, 98105, 
-  98195, 98112, 98102, 98199, 98119, 98109, 98122, 98121, 98101, 98164, 98174, 
-  98104, 98144, 98134, 98136, 98126, 98116, 98106, 98118]
+CSV.foreach("db/aff_download/ACS_13_5YR_B16001_with_ann.csv", 
+  encoding: "UTF-8", headers: true) do |row|
+  # for each row, take only the columns that are keys in zipcode_headers
+  # assign the values in the row to the attributes that are the values
+  row_hash = row.to_hash
+  zipcode_hash = {}
+  zipcode_headers.each do |header|
+    zipcode_hash[zipcode_headers[header]] = row_hash[header]
+  end
+  Zipcode.create(zipcode_hash)
+end
 
-# Store density in Zipcode model
+# seattle_zipcodes = [98177, 98133, 98125, 98117, 98107, 98103, 98115, 98105, 
+#   98195, 98112, 98102, 98199, 98119, 98109, 98122, 98121, 98101, 98164, 98174, 
+#   98104, 98144, 98134, 98136, 98126, 98116, 98106, 98118]
 
-headers = {
+# Store density in Zipcode model ?
+# => calculate in the model
+
+zipcode_headers = {
 "GEO.id2": :zipcode,
 "HD01_VD01": :total,
 "HD01_VD02": :english,
