@@ -1,7 +1,11 @@
 class HomeController < ApplicationController
   def index
-    @seattle_zips = Zipcode.by_city(ApplicationController::SEATTLE_ZIPCODES)
-    @vancouver_zips = Zipcode.by_city(ApplicationController::VANCOUVER_ZIPCODES)
-    @language = params[:language]
+    @cities = ["Seattle", "Tacoma", "Vancouver"]
+    @languages = Language.by_name
+
+    @language = params[:language_id]
+    @city = params[:city].to_sym
+
+    @city_zips = Zipcode.by_city(ApplicationController::CITY_ZIPS[@city])
   end
 end
