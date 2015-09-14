@@ -57,47 +57,49 @@ CSV.foreach("db/aff_download/ACS_13_5YR_B16001_with_ann.csv",
   Zipcode.create(zipcode_hash)
 end
 
-# Store density in Zipcode model ?
-# => calculate in the model
+languages = [
+  { name: "English (only)", label: :english },
+  { name: "Spanish or Spanish Creole", label: :spanish },
+  { name: "French (incl. Patois, Cajun)", label: :french },
+  { name: "French Creole", label: :french_creole },
+  { name: "Italian", label: :italian },
+  { name: "Portuguese or Portuguese Creole", label: :portuguese },
+  { name: "German", label: :german },
+  { name: "Yiddish", label: :yiddish },
+  { name: "Other West Germanic languages", label: :other_west_germanic },
+  { name: "Scandinavian languages", label: :scandinavian },
+  { name: "Greek", label: :greek },
+  { name: "Russian", label: :russian },
+  { name: "Polish", label: :polish },
+  { name: "Serbo-Croatian", label: :serbo_croatian },
+  { name: "Other Slavic languages", label: :other_slavic },
+  { name: "Armenian", label: :armenian },
+  { name: "Persian", label: :persian },
+  { name: "Gujarati", label: :gujarati },
+  { name: "Hindi", label: :hindi },
+  { name: "Urdu", label: :urdu },
+  { name: "Other Indic languages", label: :other_indic },
+  { name: "Other Indo-European languages", label: :other_indo_european },
+  { name: "Chinese", label: :chinese },
+  { name: "Japanese", label: :japanese },
+  { name: "Korean", label: :korean },
+  { name: "Mon-Khmer, Cambodian", label: :mon_khmer_cambodian },
+  { name: "Hmong", label: :hmong },
+  { name: "Thai", label: :thai },
+  { name: "Laotian", label: :laotian },
+  { name: "Vietnamese", label: :vietnamese },
+  { name: "Other Asian languages", label: :other_asian },
+  { name: "Tagalog", label: :tagalog },
+  { name: "Other Pacific Island languages", label: :other_pacific_island },
+  { name: "Navajo", label: :navajo },
+  { name: "Other Native North American languages", label: :other_native_north_american },
+  { name: "Hungarian", label: :hungarian },
+  { name: "Arabic", label: :arabic },
+  { name: "Hebrew", label: :hebrew },
+  { name: "African languages", label: :african },
+  { name: "Other and unspecified languages", label: :other_and_unspecified }
+]
 
-# labels: "HD01_VD01": :total,
-# "HD01_VD02": :English,
-# "HD01_VD03": Spanish or Spanish Creole:
-# HD01_VD06,"Estimate; Total: - French (incl. Patois, Cajun):"
-# HD01_VD09,Estimate; Total: - French Creole:
-# HD01_VD12,Estimate; Total: - Italian:
-# HD01_VD15,Estimate; Total: - Portuguese or Portuguese Creole:
-# HD01_VD18,Estimate; Total: - German:
-# HD01_VD21,Estimate; Total: - Yiddish:
-# HD01_VD24,Estimate; Total: - Other West Germanic languages:
-# HD01_VD27,Estimate; Total: - Scandinavian languages:
-# HD01_VD30,Estimate; Total: - Greek:
-# HD01_VD33,Estimate; Total: - Russian:
-# HD01_VD36,Estimate; Total: - Polish:
-# HD01_VD39,Estimate; Total: - Serbo-Croatian:
-# HD01_VD42,Estimate; Total: - Other Slavic languages:
-# HD01_VD45,Estimate; Total: - Armenian:
-# HD01_VD48,Estimate; Total: - Persian:
-# HD01_VD51,Estimate; Total: - Gujarati:
-# HD01_VD54,Estimate; Total: - Hindi:
-# HD01_VD57,Estimate; Total: - Urdu:
-# HD01_VD60,Estimate; Total: - Other Indic languages:
-# HD01_VD63,Estimate; Total: - Other Indo-European languages:
-# HD01_VD66,Estimate; Total: - Chinese:
-# HD01_VD69,Estimate; Total: - Japanese:
-# HD01_VD72,Estimate; Total: - Korean:
-# HD01_VD75,"Estimate; Total: - Mon-Khmer, Cambodian:"
-# HD01_VD78,Estimate; Total: - Hmong:
-# HD01_VD81,Estimate; Total: - Thai:
-# HD01_VD84,Estimate; Total: - Laotian:
-# HD01_VD87,Estimate; Total: - Vietnamese:
-# HD01_VD90,Estimate; Total: - Other Asian languages:
-# HD01_VD93,Estimate; Total: - Tagalog:
-# HD01_VD96,Estimate; Total: - Other Pacific Island languages:
-# HD01_VD99,Estimate; Total: - Navajo:
-# HD01_VD102,Estimate; Total: - Other Native North American languages:
-# HD01_VD105,Estimate; Total: - Hungarian:
-# HD01_VD108,Estimate; Total: - Arabic:
-# HD01_VD111,Estimate; Total: - Hebrew:
-# HD01_VD114,Estimate; Total: - African languages:
-# HD01_VD117,Estimate; Total: - Other and unspecified languages:
+languages.each do |language|
+  Language.create(language)
+end
