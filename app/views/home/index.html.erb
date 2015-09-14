@@ -1,28 +1,28 @@
-<h1>Seattle Language Distribution by Zipcode</h1>
+<h1>Washington State Language Distribution by Zipcode</h1>
 
-<h3>Select a language: <%= @language.capitalize %></h3>
-<%#= form do |f| %>
-  <%# collection_select %>
-<%# end %>
+<%= form_tag root_path, method: :get do %>
+  <%= select_tag :language_id, options_from_collection_for_select(@languages, :label, :name, @language.to_sym) %>
+  <%= select_tag :city, options_for_select(
+    [
+      ["Seattle", :seattle],
+      ["Tacoma", :tacoma],
+      ["Vancouver", :vancouver]
+    ], @city
+  )%>
+  <%= submit_tag "Select language and city" %>
+<% end %>
 
-<h4>Seattle</h4>
+<h4> <%= @city.capitalize %> residents who speak <%= @language.capitalize %> at home, by zipcode:</h4>
 
-<ul>
-  <% language_speakers = 0 %>
-  <% @seattle_zips.each do |zipcode| %>
-    <li><%= zipcode.zipcode %>: <%= zipcode.send(@language) %></li>
-    <% language_speakers += zipcode.send(@language) %>
-  <% end %>
-  <li>Seattle Total: <%= language_speakers %></li>
-</ul>
+<% if @language != nil && params[:city] %>
+  <ul>
+    <% language_speakers = 0 %>
+    <% @city_zips.each do |zipcode| %>
+      <li><%= zipcode.zipcode %>: <%= zipcode.send(@language) %></li>
+      <% language_speakers += zipcode.send(@language) %>
+    <% end %>
+    <li><%= @city.capitalize %> Total: <%= language_speakers %></li>
+  </ul>
+<% end %>
 
-<h4>Vancouver</h4>
-
-<ul>
-  <% language_speakers = 0 %>
-  <% @vancouver_zips.each do |zipcode| %>
-    <li><%= zipcode.zipcode %>: <%= zipcode.send(@language) %></li>
-    <% language_speakers += zipcode.send(@language) %>
-  <% end %>
-  <li>Vancouver Total: <%= language_speakers %></li>
-</ul>
+<p>All data from the American Communities Survey (ACS) 5-year estimates from 2013, table B-16001.</p>
